@@ -1,7 +1,4 @@
 <?php
-
-
-// Connect to your database
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -18,7 +15,33 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Method: GET, POST, OPTIONS");
 header("Access-Control-Allow-Method: Content-Type, Authorization");
+include '../class/delete.php';
+include '../class/edit.php';
+ if (isset($_POST['btn_delete'])){
+          $db_delete=new soft_delete();
+          $delete_item_id=$_POST['delete_item_id'];
+          $db_delete->delete_item($delete_item_id);
+         
+        }
+        if (isset($_POST['btn_edit'])){
+          $db_manager=new edit_data();
+          $edit_item_id=$_POST['edit_item_id'];
+          $edit_item_name=$_POST['edit_item_name'];
 
+          $item_check = $mysqli->query("SELECT item_id FROM items_table WHERE item_name = '$edit_item_name'") or die($mysqli->error);
+
+          if ($item_check->num_rows > 0) {
+            
+            $error_message = "Error: The Item is already registered.";
+            }else{
+            
+             
+              $db_manager->edit_item($edit_item_id,$edit_item_name);
+         
+              
+          }
+        
+      }
 // Fetch data from your database (replace 'your_table' with your actual table name)
 $sql = "SELECT i.item_id,
       i.item_name,

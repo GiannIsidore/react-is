@@ -1,12 +1,11 @@
-import MainLayout from "@/components/MainLayout";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>hi</h1>
     </div>
   );
 };
 
-export default page;
+export default Page;
